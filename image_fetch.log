@@ -1,0 +1,99 @@
+2025-01-14 10:33:53,353 - INFO - Fetched 10 image URLs for query: cats
+2025-01-14 10:33:53,969 - INFO - Fetched 10 image URLs for query: dogs
+2025-01-14 10:33:54,436 - INFO - Fetched 10 image URLs for query: birds
+2025-01-14 10:33:55,069 - INFO - Fetched 10 image URLs for query: horses
+2025-01-14 10:33:56,018 - INFO - Fetched 10 image URLs for query: wildlife
+2025-01-14 10:33:56,854 - INFO - Fetched 10 image URLs for query: flowers
+2025-01-14 10:33:57,338 - INFO - Fetched 10 image URLs for query: cars
+2025-01-14 10:33:58,033 - INFO - Fetched 10 image URLs for query: landscapes
+2025-01-14 10:33:58,687 - INFO - Fetched 10 image URLs for query: food
+2025-01-14 10:34:01,968 - INFO - Downloaded: images\69fd7126-778b-4a3e-ae57-b842388c83fe.jpg
+2025-01-14 10:34:02,585 - INFO - Downloaded: images\Variety-fruits-vegetables.jpg
+2025-01-14 10:34:02,888 - INFO - Downloaded: images\Nokota_Horses_cropped.jpg
+2025-01-14 10:34:05,468 - INFO - Downloaded: images\wildlife-park-bear.jpg
+2025-01-14 10:34:07,351 - INFO - Downloaded: images\horsesrunningbeach_2.jpg
+2025-01-14 10:34:09,790 - INFO - Downloaded: images\most-powerful-cars-in-the-world.webp
+2025-01-14 10:34:10,663 - INFO - Downloaded: images\RS22525__scr-e1695214632666-1024x688.jpg
+2025-01-14 10:34:13,120 - INFO - Downloaded: images\mM87l2ZsQRSawMLLRlFF_FallLandscape7-.jpg
+2025-01-14 10:34:13,943 - INFO - Downloaded: images\Cornell_Lab_of_Ornithology-Bird_feather_colors-887x591.jpg
+2025-01-14 10:34:15,128 - INFO - Downloaded: images\przewalskiswildhorse-001.jpg
+2025-01-14 10:34:15,561 - INFO - Downloaded: images\659e6c1875a6ef6d59572be3_types%20of%20landscapes.webp
+2025-01-14 10:34:16,243 - INFO - Downloaded: images\homepage-hero-m.jpg
+2025-01-14 10:34:16,556 - INFO - Downloaded: images\640px-Good_Food_Display_-_NCI_Visuals_Online.jpg
+2025-01-14 10:34:17,238 - INFO - Downloaded: images\TEV68-3A.jpg
+2025-01-14 10:34:18,387 - INFO - Downloaded: images\MIT_Food-Diabetes-01_0.jpg
+2025-01-14 10:34:18,655 - INFO - Downloaded: images\Orange-colored-cat-yawns-displaying-teeth.jpg
+2025-01-14 10:34:20,690 - INFO - Downloaded: images\Q3-24-HP-promo.jpg
+2025-01-14 10:34:21,131 - INFO - Downloaded: images\domestic-dog_thumb_3x2.jpg
+2025-01-14 10:34:22,584 - INFO - Downloaded: images\Good_Food_Display_-_NCI_Visuals_Online.jpg
+2025-01-14 10:34:23,012 - INFO - Downloaded: images\GettyImages-1445770180.jpg
+2025-01-14 10:34:29,572 - INFO - Downloaded: images\Blog-Why-How-1024x683.png
+2025-01-14 10:34:29,996 - INFO - Downloaded: images\MV5BMTg5NzY0MzA2MV5BMl5BanBnXkFtZTYwNDc3NTc2._V1_FMjpg_UX1000_.jpg
+2025-01-14 10:34:31,164 - INFO - Downloaded: images\JI230816Cosmos220-6d9254f-edited-scaled.jpg
+2025-01-14 10:34:33,087 - INFO - Downloaded: images\9dfaeda73538877faf9c927ec8c8d6863c2c2111-4800x3200.jpg
+2025-01-14 10:34:33,355 - INFO - Downloaded: images\Cornell_Lab_of_Ornithology-Bird_feather_colors.jpg
+2025-01-14 10:34:34,243 - INFO - Downloaded: images\cover-photo-mountain-underwater_8193400c-d58b-4f41-b277-e9d1e6238926.jpg
+2025-01-14 10:34:37,279 - ERROR - Failed to download https://vetmed.tamu.edu/news/wp-content/uploads/sites/9/2023/10/AdobeStock_542062433-1024x768.jpeg: 403 Client Error: Forbidden for url: https://vetmed.tamu.edu/news/wp-content/uploads/sites/9/2023/10/AdobeStock_542062433-1024x768.jpeg
+2025-01-14 10:34:42,391 - INFO - Downloaded: images\swiss-mountains.jpg
+2025-01-14 10:34:43,291 - INFO - Downloaded: images\20230217025255_file_63eeec0786a7a_63eeef57dc8de.jpg
+2025-01-14 10:34:46,853 - INFO - Downloaded: images\cut%20cat%20serhio%2002-1813x1811-720x719.jpg
+2025-01-14 10:34:47,468 - INFO - Downloaded: images\dog-breed-height-comparison.jpg
+2025-01-14 10:34:48,812 - INFO - Downloaded: images\Primary-Perspective-hires.jpg
+2025-01-14 10:34:49,936 - INFO - Downloaded: images\patagonia-torresdelpaine-jvnphoto-thumb.jpg
+2025-01-14 10:34:51,087 - INFO - Downloaded: images\Sunflower-field-Fargo-North-Dakota.jpg
+2025-01-14 10:34:51,892 - INFO - Downloaded: images\maxresdefault.jpg
+2025-01-14 10:34:52,907 - INFO - Downloaded: images\falling-star-great_orig.jpg
+2025-01-14 10:34:54,188 - ERROR - Failed to download https://www.rosehillflowers.com/images/itemVariation/v4_ultimateflowers-240404114301.jpg: 403 Client Error: Forbidden for url: https://www.rosehillflowers.com/images/itemVariation/v4_ultimateflowers-240404114301.jpg
+2025-01-14 10:34:55,688 - INFO - Downloaded: images\aug-2023-cover-illustration-different-types-foods-five-food-groups-vegetables-fruits-dairy-products-oils-proteins.jpg
+2025-01-14 10:34:56,226 - INFO - Downloaded: images\sddefault.jpg
+2025-01-14 10:34:57,892 - INFO - Downloaded: images\VIER%20PFOTEN_2020-10-07_00138-2890x2000-1920x1329.jpg
+2025-01-14 10:34:58,290 - INFO - Downloaded: images\65ea95887efa5c72ece1abb0_most%20beautiful%20landscapes%20in%20the%20world.webp
+2025-01-14 10:34:59,063 - INFO - Downloaded: images\2025-10best-cars-winners-674634317da76.jpg
+2025-01-14 10:35:01,909 - INFO - Downloaded: images\power-what-can-horses-teach-us-2-scaled-1.jpg
+2025-01-14 10:35:04,642 - INFO - Downloaded: images\6%20World%20Wildlife%20Day%202024%20Official%20Poster%20Contest-English-Twitter.png
+2025-01-14 10:35:05,068 - INFO - Downloaded: images\NationalGeographic_2572187_square.jpg
+2025-01-14 10:35:06,367 - ERROR - Failed to download https://www.understandinganimalresearch.org.uk/application/files/thumbnails/page_2x/5917/2425/2096/UAR_Website_cover_images_landing_pages_7-min.jpg: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2025-01-14 10:35:07,564 - INFO - Downloaded: images\neat_emmapharaoh_19march24_12.jpg
+2025-01-14 10:35:07,613 - ERROR - Failed to download https://dogsforbetterlives.org/wp-content/uploads/2022/12/trains-both-shelter-dogs-and-purpose-bred-dogs-as-service-dogs.png: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2025-01-14 10:35:08,278 - INFO - Downloaded: images\1200px-Wildlife_at_Maasai_Mara_%28Lion%29.jpg
+2025-01-14 10:35:10,012 - INFO - Downloaded: images\cardinal-bird-branch-1024x676.jpg
+2025-01-14 10:35:10,751 - INFO - Downloaded: images\18015-MC20BluInfinito-scaled-e1707920217641.jpg
+2025-01-14 10:35:11,050 - INFO - Downloaded: images\300px-Bird_Diversity_2013.png
+2025-01-14 10:35:11,286 - INFO - Downloaded: images\types-horse-markings.jpg
+2025-01-14 10:35:12,093 - INFO - Downloaded: images\330px-Flower_poster_2.jpg
+2025-01-14 10:35:12,503 - INFO - Downloaded: images\GettyImages-598175960-cute-dog-headshot.jpg
+2025-01-14 10:35:13,245 - INFO - Downloaded: images\2022-08-08_Maara-21333-Edit-1.jpg
+2025-01-14 10:35:14,108 - INFO - Downloaded: images\Sphynx_-_cat._img_031.jpg
+2025-01-14 10:35:14,629 - INFO - Downloaded: images\Taiwan-Blue-Magpie-web-768x432.jpg
+2025-01-14 10:35:15,639 - INFO - Downloaded: images\00722-Cars-_Blackstone__Rounded_768x.png
+2025-01-14 10:35:15,893 - INFO - Downloaded: images\220px-Cars_2006.jpg
+2025-01-14 10:35:16,240 - INFO - Downloaded: images\Cars_2006.jpg
+2025-01-14 10:35:16,634 - ERROR - Failed to download https://www.stadiumflowers.com/images/itemVariation/v4_2024-07-FarmFresh-Deluxe-24070770804.JPEG: 403 Client Error: Forbidden for url: https://www.stadiumflowers.com/images/itemVariation/v4_2024-07-FarmFresh-Deluxe-24070770804.JPEG
+2025-01-14 10:35:16,890 - ERROR - Failed to download https://www.allensflowers.com/images/itemVariation/v4_boldandbeautiful2024-231219115007.jpg: 403 Client Error: Forbidden for url: https://www.allensflowers.com/images/itemVariation/v4_boldandbeautiful2024-231219115007.jpg
+2025-01-14 10:35:17,709 - INFO - Downloaded: images\AR-JF-35149-Homemade-Corn-Dogs-4x3-86d5f822adc144a5bc6e8d3aa897e476.jpg
+2025-01-14 10:35:31,078 - INFO - Downloaded: images\RS17966_Lika-Plains-Horses-2-ed.jpg
+2025-01-14 10:35:32,083 - INFO - Downloaded: images\aug-2023-cover-illustration-different-types-foods-five-food-groups-vegetables-fruits-dairy-products-oils-proteins.jpg
+2025-01-14 10:35:32,665 - INFO - Downloaded: images\img-cat-whiskers-101-header.jpg
+2025-01-14 10:35:33,968 - INFO - Downloaded: images\horsesrunningbeach_2.jpg
+2025-01-14 10:35:34,317 - INFO - Downloaded: images\two-different-breeds-of-cats-side-by-side-outdoors-in-the-garden.jpg
+2025-01-14 10:35:35,266 - INFO - Downloaded: images\Horses-Digestive-System.png
+2025-01-14 10:35:39,328 - INFO - Downloaded: images\baby-giraffe-amari-1024x683.jpg
+2025-01-14 10:35:40,209 - INFO - Downloaded: images\AmericanGoldfinch_MattWilliams_4000x2200.jpg
+2025-01-14 10:35:41,720 - INFO - Downloaded: images\1jb1y8sph0_elephantv2.jpg
+2025-01-14 10:35:42,458 - ERROR - Failed to download https://www.nwf.org/-/media/NEW-WEBSITE/Design/nwf_social_share_default_v1.jpg: HTTPSConnectionPool(host='www.nwf.org', port=443): Max retries exceeded with url: /-/media/NEW-WEBSITE/Design/nwf_social_share_default_v1.jpg (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1006)')))
+2025-01-14 10:36:03,827 - ERROR - Failed to download https://www.doi.gov/sites/default/files/content_images//uploads/31291306-bosque-del-apache-national-wildlife-refuge-wildlife-us-fish-wildlife-kristina-lauer-2018.jpg: HTTPSConnectionPool(host='www.doi.gov', port=443): Max retries exceeded with url: /sites/default/files/content_images//uploads/31291306-bosque-del-apache-national-wildlife-refuge-wildlife-us-fish-wildlife-kristina-lauer-2018.jpg (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000022958F4B310>, 'Connection to www.doi.gov timed out. (connect timeout=None)'))
+2025-01-14 10:36:04,487 - INFO - Downloaded: images\merchandising-flowers-page-167753.jpg
+2025-01-14 10:36:06,205 - INFO - Downloaded: images\20240928130759-1024x1024.jpg
+2025-01-14 10:36:08,578 - INFO - Downloaded: images\NationalGeographic_1468962_square.jpg
+2025-01-14 10:36:09,996 - INFO - Downloaded: images\Wildlife_at_Maasai_Mara_%28Lion%29.jpg
+2025-01-14 10:36:11,514 - INFO - Downloaded: images\a-veterinarian-is-caring-for-a-newborn-baby-deer-i-2023-06-20-10-00-12-utc-scaled.jpg
+2025-01-14 10:36:11,719 - INFO - Downloaded: images\Zebra-finch-Taeniopygia-guttata-bird.jpg
+2025-01-14 10:36:12,081 - INFO - Downloaded: images\NationalGeographic_2572187_3x4.jpg
+2025-01-14 10:36:13,204 - INFO - Downloaded: images\2025-ford-mustang-60th-anniversary-exterior-66227932bb88e.jpg
+2025-01-14 10:36:14,030 - INFO - Downloaded: images\25_years_car_side_on.png
+2025-01-14 10:36:14,755 - INFO - Downloaded: images\pexels-photo-346529.jpeg
+2025-01-14 10:36:15,448 - INFO - Downloaded: images\SavingWildlife1.jpg
+2025-01-14 10:36:15,780 - INFO - Downloaded: images\800px-Good_Food_Display_-_NCI_Visuals_Online.jpg
+2025-01-14 10:36:17,096 - INFO - Downloaded: images\WC202209_LAST_006_430968_reduced.jpg
+2025-01-14 10:36:17,332 - ERROR - Failed to download https://www.eatright.org/-/media/images/eatright-landing-pages/foodgroupslp_804x482.jpg?as=0&w=967&rev=d0d1ce321d944bbe82024fff81c938e7&hash=E6474C8EFC5BE5F0DA9C32D4A797D10D: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2025-01-14 10:36:19,801 - INFO - Downloaded: images\FYF-116.jpg
