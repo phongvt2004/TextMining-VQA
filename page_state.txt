@@ -1,0 +1,1 @@
+{"cats": 21, "dogs": 21, "birds": 21, "horses": 21, "wildlife": 21, "flowers": 21, "cars": 21, "landscapes": 21, "food": 21}
