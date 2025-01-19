@@ -1,1 +1,4 @@
 requests
+transformers
+scipy
+torch
