@@ -1,4 +1,14 @@
 requests
-transformers
 scipy
 torch
+datasets
+torchvision
+transformers
+scikit-learn
+pandas
+wandb
+huggingface_hub
+Pillow
+tensorboardX
+tqdm
+python-dotenv
