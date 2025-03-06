@@ -61,10 +61,8 @@ while  image_id in json_data and image_id in json_data['image_id'].keys():
     image_id_unique += 1
 
 # json_data
-image_path = r"D:\HCMUS\learn-gui-python\streamlit\bear.jpg"
-image_path_tmp = df.loc[df['image_id'] == image_id, 'image_path'].iloc[0]
-
-image_id, image_path_tmp
+# image_path = r"D:\HCMUS\learn-gui-python\streamlit\bear.jpg"
+image_path = df.loc[df['image_id'] == image_id, 'image_path'].iloc[0]
 
 st.session_state['image_id_unique'] = image_id_unique
 main(df, image_id, image_path)
