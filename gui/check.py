@@ -3,6 +3,8 @@ import pandas as pd
 import json 
 
 PATH_TESTDATA = '../vqa_dataset/phong2004/final-vqa-dataset/versions/4/test.csv'
+PATH_IMAGE = '../vqa_dataset/images/' 
+# ex: ../vqa_dataset/images/airplane/aircraft-holiday-sun-tourism-99567.jpeg
 
 def main(df, image_id, image_path):
     st.image(image_path)
@@ -62,7 +64,7 @@ while  image_id in json_data and image_id in json_data['image_id'].keys():
 
 # json_data
 # image_path = r"D:\HCMUS\learn-gui-python\streamlit\bear.jpg"
-image_path = df.loc[df['image_id'] == image_id, 'image_path'].iloc[0]
+image_path = PATH_IMAGE + df.loc[df['image_id'] == image_id, 'image_path'].iloc[0]
 
 st.session_state['image_id_unique'] = image_id_unique
 main(df, image_id, image_path)
