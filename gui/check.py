@@ -44,6 +44,7 @@ def run():
         image_id = val
         if str(image_id) not in list_image_id or json_data['image_id'][str(image_id)]['status'] == 'None': 
             break
+    
 
     image_path = PATH_IMAGE + df.loc[df['image_id'] == image_id, 'image_path'].iloc[0]
     
@@ -64,6 +65,8 @@ def run():
                     break
             
             write_json(FILE_STATUS_JSON,  json_data, image_path, image_id, "None")
+
+            st.rerun()
             
 
     with btn2:
@@ -77,8 +80,9 @@ def run():
             
             write_json(FILE_STATUS_JSON,  json_data, image_path, image_id, "None")
 
-    
+            st.rerun()
 
+    
     df = df[df['image_id'] == image_id]
 
     data = {
