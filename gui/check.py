@@ -1,74 +1,101 @@
 import streamlit as st 
 import pandas as pd 
-import json 
+import json, os
 
-PATH_TESTDATA = '../vqa_dataset/phong2004/final-vqa-dataset/versions/4/test.csv'
-PATH_IMAGE = '../vqa_dataset/images/' 
+PATH_SRC = os.path.dirname(os.path.dirname(__file__))
+
+PATH_TESTDATA = PATH_SRC + '/vqa_dataset/phong2004/final-vqa-dataset/versions/4/test.csv'
+PATH_IMAGE = PATH_SRC + '/vqa_dataset/images/' 
+FILE_STATUS_JSON = PATH_SRC + "/gui/status.json"
+
 # ex: ../vqa_dataset/images/airplane/aircraft-holiday-sun-tourism-99567.jpeg
 
-def main(df, image_id, image_path):
-    st.image(image_path)
-  
-    btn1, btn2, *_ = st.columns(6, border=0)
-    with btn1:
-        if st.button('Wrong', icon='❌'):
-            st.session_state["button_pressed"] = "wrong"
-    
-    with btn2:
-        if st.button('Accept', icon='✅'):
-            st.session_state['button_pressed'] = 'accept'
-
-
-    df = df[df['image_id'] == image_id]
-    st.dataframe(df)
-
-def open_json(name_file):
-    image_id_unique = 0
-    with open(name_file, "r") as fread:
-        if 'image_id_unique' in st.session_state:
-            image_id_unique = st.session_state['image_id_unique'] 
-            image_id_unique += 1
-            json_data = json.loads(fread.read())
-        else: 
+def open_json(file_name):
+    with open(file_name, "r") as f:
+        content = f.read()
+        if content.strip():
+            json_data = json.loads(content)
+        else:
             json_data = {"image_id": {}}
     
-    return json_data, image_id_unique
+    # nhung image id da kiem duyet
+    list_image_id = list(json_data["image_id"].keys())
 
-def write_json(name_file):
-    if 'button_pressed' in st.session_state:
-        prev_image_id = st.session_state['prev_image_id']
-        status = st.session_state['button_pressed']
+    return json_data, list_image_id
+
+def write_json(file_name, json_data, image_path, image_id, status):
+     
+    json_data['image_id'][str(image_id)] = {
+        "path": image_path,
+        "status": status
+    }
+
+    with open(file_name, "w") as fout:
         
-        json_data['image_id'][str(prev_image_id)][status] = st.session_state['button_pressed']
-
-    json_data
-    st.session_state["prev_image_id"] = image_id
-    json_data["image_id"][str(image_id)] = {"path": image_path}
-
-    with open(name_file, "w") as fout:
         json.dump(json_data, fout)
 
 
+def run():
+    df = pd.read_csv(PATH_TESTDATA)
 
+    json_data, list_image_id= open_json(FILE_STATUS_JSON)
 
+    for val in df['image_id'].unique():
+        image_id = val
+        if str(image_id) not in list_image_id or json_data['image_id'][str(image_id)]['status'] == 'None': 
+            break
 
-df = pd.read_csv(PATH_TESTDATA)
+    image_path = PATH_IMAGE + df.loc[df['image_id'] == image_id, 'image_path'].iloc[0]
+    
+    if len(list_image_id) == 0:
+        write_json(FILE_STATUS_JSON,  json_data, image_path, image_id, "None")
+    
+    if os.path.exists(image_path): 
+        st.image(image_path)
+    
+    btn1, btn2, *_ = st.columns(6, border=0)
+    with btn1:
+        if st.button('Wrong', icon='❌'):
+            write_json(FILE_STATUS_JSON, json_data, image_path, list_image_id[-1], "wrong")
 
-json_data, image_id_unique = open_json("status.json")
+            for val in df['image_id'].unique():
+                image_id = val
+                if str(image_id) not in list_image_id: 
+                    break
+            
+            write_json(FILE_STATUS_JSON,  json_data, image_path, image_id, "None")
+            
 
-image_id = df['image_id'].unique()[image_id_unique]
+    with btn2:
+        if st.button('Accept', icon='✅'):
+            write_json(FILE_STATUS_JSON,  json_data, image_path, list_image_id[-1], "accept")
 
-while  image_id in json_data and image_id in json_data['image_id'].keys():
-    image_id = df['image_id'].unique()[image_id_unique]
-    image_id_unique += 1
-
-# json_data
-# image_path = r"D:\HCMUS\learn-gui-python\streamlit\bear.jpg"
-image_path = PATH_IMAGE + df.loc[df['image_id'] == image_id, 'image_path'].iloc[0]
-
-st.session_state['image_id_unique'] = image_id_unique
-main(df, image_id, image_path)
-
-write_json("status.json")
+            for val in df['image_id'].unique():
+                image_id = val
+                if str(image_id) not in list_image_id:
+                    break
+            
+            write_json(FILE_STATUS_JSON,  json_data, image_path, image_id, "None")
 
     
+
+    df = df[df['image_id'] == image_id]
+
+    data = {
+        "image_id": df['image_id'],
+        "question": df['question'],
+        "answer": df['answer'],
+        "image_path": df['image_path']
+    }
+
+    df = pd.DataFrame(data)
+
+    edited_df = st.data_editor(df, num_rows="dynamic")
+    if st.button("Lưu thay đổi"):
+        edited_df.to_csv(PATH_SRC + "/gui/updated_data.csv", mode='a', header=False, index=False)
+        st.success("Dữ liệu đã được lưu!")
+
+
+    json_data
+
+run()

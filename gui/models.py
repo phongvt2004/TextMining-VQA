@@ -27,20 +27,22 @@ def get_format_response(image,question,selected_model):
         answer = processor.decode(outputs[0], skip_special_tokens=True)
         return answer
 
+def run():
+    st.title("Visual Question Answering (VQA)")
+    st.subheader("A demo app showcasing VQA models.")
 
-st.title("Visual Question Answering (VQA)")
-st.subheader("A demo app showcasing VQA models.")
+    selected_model = st.sidebar.selectbox("Select Model", list(models.keys()))
 
-selected_model = st.sidebar.selectbox("Select Model", list(models.keys()))
+    uploaded_image = st.file_uploader("Upload Image")
 
-uploaded_image = st.file_uploader("Upload Image")
+    if uploaded_image:
+        image = Image.open(uploaded_image).convert("RGB")
+        st.image(image, caption="Uploaded Image")
 
-if uploaded_image:
-    image = Image.open(uploaded_image).convert("RGB")
-    st.image(image, caption="Uploaded Image")
+    question = st.text_input("Ask a Question about the Image")
 
-question = st.text_input("Ask a Question about the Image")
+    if uploaded_image and question:
+        answer = get_format_response(image, question, selected_model)
+        st.write(f"🤔 {selected_model} Answer: {answer}")
 
-if uploaded_image and question:
-    answer = get_format_response(image, question, selected_model)
-    st.write(f"🤔 {selected_model} Answer: {answer}")
+run()
