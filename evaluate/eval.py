@@ -12,7 +12,7 @@ from sklearn.metrics import f1_score
 #Set dataset paths (Adjust as per your folder structure)
 dataset_path = r"C:\Users\tcgnh\OneDrive\Desktop\workspace\vqa-info-data"
 test_csv_path = os.path.join(dataset_path, "test.csv")
-image_base_path = dataset_path  # Assuming images are in the dataset folder
+image_base_path = r"C:\Users\tcgnh\OneDrive\Desktop\vqa_dataset\images"  # Assuming images are in the dataset folder
 
 #Load dataset
 df = pd.read_csv(test_csv_path)
