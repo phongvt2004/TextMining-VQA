@@ -52,7 +52,6 @@ id2answer = {i: ans for i, ans in enumerate(unique_answers)}  # Map to index
 num_labels = len(answer2id)  # Total unique answers
 
 # Load the ViLT processor - Keep processor loading in train file
-processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
 
 def load_checkpoint(checkpoint_path, model, optimizer, scheduler):
     if checkpoint_path and os.path.isdir(checkpoint_path):
@@ -99,7 +98,10 @@ if __name__ == "__main__": # Add main block
     # Argument Parser
     parser = argparse.ArgumentParser(description="ViLT VQA Finetuning Script")
     parser.add_argument("--checkpoint_path", type=str, default=None, help="Path to checkpoint directory to resume training from")
+    parser.add_argument("--finetune", type=str, default=None, help="Path to checkpoint directory to resume training from")
     parser.add_argument("--epochs", type=int, default=1, help="Number of epochs")
+    parser.add_argument("--num_workers", type=int, default=1, help="Number of data workers")
+    parser.add_argument("--batch_size", type=int, default=16, help="Number of training samples per batch")
     args = parser.parse_args()
     checkpoint_path_arg = args.checkpoint_path # Get checkpoint path from argument
     num_epochs = args.epochs
@@ -107,19 +109,22 @@ if __name__ == "__main__": # Add main block
     # Set device
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     
+    # Load ViLT model
+    model = CustomViltForVQA.from_pretrained(args.finetune, num_labels=num_labels, id2label=id2answer, label2id=answer2id, ignore_mismatched_sizes=True).to(device)
+    processor = ViltProcessor.from_pretrained(args.finetune)
+    
     # Initialize datasets and dataloaders - Pass processor, answer2id, transform
     train_dataset = VQADataset(train_df, processor, answer2id, transform, ROOT_FOLDER)
     val_dataset = VQADataset(val_df, processor, answer2id, transform, ROOT_FOLDER)
-    train_dataloader = DataLoader(train_dataset, batch_size=128, shuffle=True,
+    train_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True,
                                   collate_fn=lambda batch: collate_fn(batch, processor), # Pass processor to collate_fn
-                                  num_workers=16)
-    val_dataloader = DataLoader(val_dataset, batch_size=256, shuffle=False,
+                                  num_workers=args.num_workers)
+    val_dataloader = DataLoader(val_dataset, batch_size=args.batch_size*2, shuffle=False,
                                 collate_fn=lambda batch: collate_fn(batch, processor), # Pass processor to collate_fn
-                                num_workers=16)
+                                num_workers=args.num_workers)
     
     
-    # Load ViLT model
-    model = CustomViltForVQA.from_pretrained("dandelin/vilt-b32-finetuned-vqa", num_labels=num_labels, id2label=id2answer, label2id=answer2id, ignore_mismatched_sizes=True).to(device)
+    
     
     # Optimizer and scheduler
     optimizer = optim.AdamW(model.parameters(), lr=5e-5, weight_decay=0.01)
@@ -176,33 +181,34 @@ if __name__ == "__main__": # Add main block
     
             if global_step % eval_steps == 0: # Evaluate at eval_steps interval
                 model.eval()
-                eval_loss = 0.0
-                eval_logits = []
-                eval_labels = []
-                eval_progress_bar = tqdm(val_dataloader, desc=f"Evaluating at step {global_step}", leave=False)
-                eval_step_count += 1 # Increment eval step counter for logging purposes
-                for eval_batch in eval_progress_bar:
-                    eval_batch = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in eval_batch.items()}
-                    with torch.no_grad():
-                        eval_outputs = model(**eval_batch)
-                        batch_eval_loss = eval_outputs.loss
-                        eval_loss += batch_eval_loss.item()
-                        eval_logits.extend(eval_outputs.logits.cpu().numpy())
-                        eval_labels.extend(eval_batch['labels'].cpu().numpy())
-    
-                avg_eval_loss_epoch = eval_loss / len(val_dataloader) if len(val_dataloader) > 0 else eval_loss # Average eval loss for epoch
-                metrics = compute_metrics(np.array(eval_logits), np.array(eval_labels))
-                wandb.log({"eval_loss": avg_eval_loss_epoch, **metrics, "eval_step": eval_step_count, "global_step": global_step}, step=global_step) # Log epoch eval loss and metrics, include eval step count
-                writer.add_scalar('Loss/eval_epoch', avg_eval_loss_epoch, global_step) # Tensorboard logging for epoch eval loss
-                for metric_name, metric_value in metrics.items():
-                    writer.add_scalar(f'Metrics/{metric_name}', metric_value, global_step) # Tensorboard metrics
-                logger.info(f"Evaluation at step {global_step} - Eval Loss: {avg_eval_loss_epoch}")
-    
-    
-                if avg_eval_loss_epoch < best_eval_loss: # Save best model based on eval loss
-                    best_eval_loss = avg_eval_loss_epoch
-                    checkpoint_path_best = save_checkpoint(output_dir, global_step, model, optimizer, scheduler)
-                    logger.info(f"Best checkpoint saved at step {global_step} with eval loss: {best_eval_loss}")
+                with torch.no_grad():
+                    eval_loss = 0.0
+                    eval_logits = []
+                    eval_labels = []
+                    eval_progress_bar = tqdm(val_dataloader, desc=f"Evaluating at step {global_step}", leave=False)
+                    eval_step_count += 1 # Increment eval step counter for logging purposes
+                    for eval_batch in eval_progress_bar:
+                        eval_batch = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in eval_batch.items()}
+                        with torch.no_grad():
+                            eval_outputs = model(**eval_batch)
+                            batch_eval_loss = eval_outputs.loss
+                            eval_loss += batch_eval_loss.item()
+                            eval_logits.extend(eval_outputs.logits.cpu().numpy())
+                            eval_labels.extend(eval_batch['labels'].cpu().numpy())
+        
+                    avg_eval_loss_epoch = eval_loss / len(val_dataloader) if len(val_dataloader) > 0 else eval_loss # Average eval loss for epoch
+                    metrics = compute_metrics(np.array(eval_logits), np.array(eval_labels))
+                    wandb.log({"eval_loss": avg_eval_loss_epoch, **metrics, "eval_step": eval_step_count, "global_step": global_step}, step=global_step) # Log epoch eval loss and metrics, include eval step count
+                    writer.add_scalar('Loss/eval_epoch', avg_eval_loss_epoch, global_step) # Tensorboard logging for epoch eval loss
+                    for metric_name, metric_value in metrics.items():
+                        writer.add_scalar(f'Metrics/{metric_name}', metric_value, global_step) # Tensorboard metrics
+                    logger.info(f"Evaluation at step {global_step} - Eval Loss: {avg_eval_loss_epoch}")
+        
+        
+                    if avg_eval_loss_epoch < best_eval_loss: # Save best model based on eval loss
+                        best_eval_loss = avg_eval_loss_epoch
+                        checkpoint_path_best = save_checkpoint(output_dir, global_step, model, optimizer, scheduler)
+                        logger.info(f"Best checkpoint saved at step {global_step} with eval loss: {best_eval_loss}")
                 model.train() # Set back to train mode after evaluation
     
     

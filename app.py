@@ -1,11 +1,12 @@
 import streamlit as st
 from transformers import ViltForQuestionAnswering, BlipForQuestionAnswering, AutoProcessor
 from PIL import Image
+from modules.model import CustomViltForVQA
 
 models = {
     "BLIP": (AutoProcessor, BlipForQuestionAnswering, "Salesforce/blip-vqa-base"),
     "ViLT": (AutoProcessor, ViltForQuestionAnswering, "dandelin/vilt-b32-finetuned-vqa"),
-    "My Model": (AutoProcessor, ViltForQuestionAnswering, "phonghoccode/vilt-vqa-finetune-pytorch")
+    "My Model": (AutoProcessor, CustomViltForVQA, "phonghoccode/vilt-vqa-finetune-pytorch")
 }
 
 def get_format_response(image,question,selected_model):
