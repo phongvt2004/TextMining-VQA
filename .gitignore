@@ -3,3 +3,4 @@ google_api_keys.json
 pixabay_api_keys.json
 openverse_credentials.json
 account_config.json
+.env

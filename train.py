@@ -138,15 +138,15 @@ if __name__ == "__main__": # Add main block
     wandb.login(key=os.getenv("WANDB_API_KEY"))
     
     # Initialize WandB and TensorBoard
-    wandb.init(project="vilt-vqa-finetune", name="vilt-vqa-run-1")
+    wandb.init(project="vilt-vqa-finetune", name="vilt-vqa-run")
     writer = tensorboardX.SummaryWriter("./runs") # Optional TensorBoard logging
     
     output_dir = "./results_pytorch" # Directory to save checkpoints
-    hub_model_id = "phonghoccode/vilt-vqa-finetune-pytorch" # Change to your Hugging Face model repo
-    save_steps = 500
-    logging_steps = 100
+    hub_model_id = "phonghoccode/vilt-vqa-finetune" # Change to your Hugging Face model repo
+    save_steps = 1000
+    logging_steps = 200
     push_to_hub_steps = save_steps
-    eval_steps = 250 # Define separate eval steps
+    eval_steps = 500 # Define separate eval steps
     
     
     # Training loop
