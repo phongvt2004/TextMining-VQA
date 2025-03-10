@@ -143,10 +143,10 @@ if __name__ == "__main__": # Add main block
     
     output_dir = "./results_pytorch" # Directory to save checkpoints
     hub_model_id = "phonghoccode/vilt-vqa-finetune" # Change to your Hugging Face model repo
-    save_steps = 1000
-    logging_steps = 200
+    save_steps = 250
+    logging_steps = 100
     push_to_hub_steps = save_steps
-    eval_steps = 500 # Define separate eval steps
+    eval_steps = 250 # Define separate eval steps
     
     
     # Training loop
@@ -159,7 +159,6 @@ if __name__ == "__main__": # Add main block
         train_loss = 0.0
         progress_bar = tqdm(train_dataloader, desc=f"Epoch {epoch+1}/{num_epochs}", leave=False)
         for batch in progress_bar:
-            global_step += 1
     
             batch = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in batch.items()}
     
@@ -223,7 +222,8 @@ if __name__ == "__main__": # Add main block
                     processor.push_to_hub(hub_model_id, checkpoint_path)
                     logger.info(f"Pushed checkpoint to hub at step {global_step}")
     
-    
+            global_step += 1
+
     # Save final model and processor
     final_output_dir = os.path.join(output_dir, "final_model")
     model.save_pretrained(final_output_dir)
