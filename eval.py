@@ -48,8 +48,8 @@ if __name__ == "__main__": # Add main block
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
     
     # Load ViLT model
-    model = ViltForQuestionAnswering.from_pretrained("phonghoccode/vilt-vqa-finetune").to(device)
-    processor = ViltProcessor.from_pretrained("phonghoccode/vilt-vqa-finetune")
+    model = ViltForQuestionAnswering.from_pretrained("phonghoccode/vilt-vqa-finetune-pytorch").to(device)
+    processor = ViltProcessor.from_pretrained("phonghoccode/vilt-vqa-finetune-pytorch")
     
     # Initialize datasets and dataloaders - Pass processor, answer2id, transform
     test_dataset = VQADataset(test_df, processor, model.config.label2id, transform, ROOT_FOLDER)

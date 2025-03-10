@@ -8,6 +8,7 @@ class CustomViltForVQA(ViltForQuestionAnswering):
     def __init__(self, config):
         super().__init__(config)
         self.loss_fn = nn.CrossEntropyLoss()  # Use CrossEntropyLoss
+        self.classifier = nn.Linear(config.hidden_size, config.num_labels)
 
     def forward(
         self,
