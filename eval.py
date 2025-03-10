@@ -42,9 +42,8 @@ if __name__ == "__main__": # Add main block
     # Argument Parser
     parser = argparse.ArgumentParser(description="ViLT VQA Eval Script")
     parser.add_argument("--batch_size", type=int, default=16, help="Number of eval samples per batch")
+    parser.add_argument("--num_workers", type=int, default=1, help="Number of data workers")
     args = parser.parse_args()
-    checkpoint_path_arg = args.checkpoint_path # Get checkpoint path from argument
-    num_epochs = args.epochs
 
     # Set device
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")

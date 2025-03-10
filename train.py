@@ -100,7 +100,6 @@ if __name__ == "__main__": # Add main block
     parser.add_argument("--checkpoint_path", type=str, default=None, help="Path to checkpoint directory to resume training from")
     parser.add_argument("--finetune", type=str, default=None, help="Path to checkpoint directory to resume training from")
     parser.add_argument("--epochs", type=int, default=1, help="Number of epochs")
-    parser.add_argument("--num_workers", type=int, default=1, help="Number of data workers")
     parser.add_argument("--batch_size", type=int, default=16, help="Number of training samples per batch")
     args = parser.parse_args()
     checkpoint_path_arg = args.checkpoint_path # Get checkpoint path from argument
