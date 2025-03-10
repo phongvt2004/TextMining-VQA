@@ -206,7 +206,7 @@ if __name__ == "__main__": # Add main block
         
                     if avg_eval_loss_epoch < best_eval_loss: # Save best model based on eval loss
                         best_eval_loss = avg_eval_loss_epoch
-                        checkpoint_path_best = save_checkpoint(output_dir, global_step, model, optimizer, scheduler)
+                        checkpoint_path_best = save_checkpoint(output_dir, global_step="best", model=model, optimizer=optimizer, scheduler=scheduler)
                         logger.info(f"Best checkpoint saved at step {global_step} with eval loss: {best_eval_loss}")
                 model.train() # Set back to train mode after evaluation
     
