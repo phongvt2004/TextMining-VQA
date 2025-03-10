@@ -65,7 +65,6 @@ if __name__ == "__main__": # Add main block
         eval_logits = []
         eval_labels = []
         eval_progress_bar = tqdm(test_dataloader, desc=f"Evaluating", leave=True)
-        eval_step_count += 1 # Increment eval step counter for logging purposes
         for eval_batch in eval_progress_bar:
             eval_batch = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in eval_batch.items()}
             with torch.no_grad():
