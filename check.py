@@ -2,11 +2,11 @@ import streamlit as st
 import pandas as pd 
 import json, os
 
-PATH_SRC = os.path.dirname(os.path.dirname(__file__))
+PATH_SRC = os.path.dirname(__file__)
 
 PATH_TESTDATA = PATH_SRC + '/vqa_dataset/phong2004/final-vqa-dataset/versions/4/test.csv'
 PATH_IMAGE = PATH_SRC + '/vqa_dataset/images/' 
-FILE_STATUS_JSON = PATH_SRC + "/gui/status.json"
+FILE_STATUS_JSON = PATH_SRC + "/status.json"
 
 # ex: ../vqa_dataset/images/airplane/aircraft-holiday-sun-tourism-99567.jpeg
 
@@ -97,7 +97,7 @@ def run():
 
     edited_df = st.data_editor(df, num_rows="dynamic")
     if st.button("Lưu thay đổi"):
-        edited_df.to_csv(PATH_SRC + "/gui/updated_data.csv", mode='a', header=False, index=False)
+        edited_df.to_csv(PATH_SRC + "/updated_data.csv", mode='a', header=False, index=False)
         st.success("Dữ liệu đã được lưu!")
 
 
