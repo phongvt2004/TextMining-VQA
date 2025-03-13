@@ -1,0 +1,12 @@
+python eval.py \
+        --model beit3_base_patch16_480 \
+        --input_size 480 \
+        --task vqav2 \
+        --eval_batch_size 16 \
+        --num_workers 3 \
+        --drop_path 0.1 \
+        --nb_classes 108 \
+        --sentencepiece_model /kaggle/input/beit-3-vqa-finetune/pytorch/default/1/beit3.spm \
+        --data_path /kaggle/input/final-vqa-dataset \
+        --root_folder /kaggle/input/vqa-dataset/vqa_dataset/images \
+        --model_path /kaggle/input/beit-3-finetune-custom-vqa/pytorch/default/1/model_inference.pth 
