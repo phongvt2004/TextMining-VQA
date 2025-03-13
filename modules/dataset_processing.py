@@ -6,7 +6,7 @@ from transformers import ViltProcessor
 import os
 import pandas as pd
 
-ROOT_FOLDER = "/workspace/vqa_dataset/images"
+ROOT_FOLDER = r"C:\Users\tcgnh\OneDrive\Desktop\vqa_dataset\images"
 
 def preprocess_lazy(sample):
     # Don't load images here, just store the paths
