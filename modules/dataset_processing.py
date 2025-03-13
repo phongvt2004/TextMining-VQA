@@ -50,4 +50,5 @@ def collate_fn(batch, processor):
 
     encoding = processor(images=images, text=questions, return_tensors="pt", padding=True)
     encoding["labels"] = labels
+    encoding["questions"] = questions  # Add questions to batch dictionary
     return encoding
