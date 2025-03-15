@@ -368,8 +368,9 @@ def main(args, ds_init):
             print(f"Accuracy of the network on the {len(data_loader_test.dataset)} test images: {ext_test_stats[task_key]:.3f}%")
             exit(0)
         elif args.task == "vqav2":
-            result, _ = evaluate(data_loader_test, model, device, task_handler)
+            result, eval_metrics, _ = evaluate(data_loader_test, model, device, task_handler)
             utils.dump_predictions(args, result, "vqav2_test")
+            print(eval_metrics)
             exit(0)
         elif args.task in ["coco_captioning", "nocaps"]:
             predictions, _ = evaluate(data_loader_test, model, device, task_handler)
