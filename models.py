@@ -4,18 +4,36 @@ from PIL import Image
 from modules.model import CustomViltForVQA
 from modules.beit_3 import Beit3Processing
 from timm.models import create_model
-import modeling_finetune
+#import modeling_finetune
 from collections import OrderedDict
 import torch
 import json
+from gemini_Calls import GeminiVQA
+import tempfile
 
 models = {
     "BLIP": (AutoProcessor, BlipForQuestionAnswering, "Salesforce/blip-vqa-base"),
     "ViLT": (AutoProcessor, ViltForQuestionAnswering, "dandelin/vilt-b32-finetuned-vqa"),
-    "My Model": (AutoProcessor, CustomViltForVQA, "phonghoccode/vilt-vqa-finetune-pytorch")
+    "My Model": (AutoProcessor, CustomViltForVQA, "phonghoccode/vilt-vqa-finetune-pytorch"),
+    "Gemini_zeroshot": ("Gemini", GeminiVQA(api_key="AIzaSyD22-9DA9oTtVVxQ1iOmrmx7Xre_kaLqdU"), "Gemini"),
+    "Gemini_fewshot": ("Gemini", GeminiVQA(api_key="AIzaSyD22-9DA9oTtVVxQ1iOmrmx7Xre_kaLqdU"), "Gemini"),
 }
 
 def get_format_response(image,question,selected_model):
+    if selected_model == 'Gemini_zeroshot':
+        _, gemini_model, _ = models[selected_model]
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
+            image.save(tmp, format="PNG")
+            tmp_path = tmp.name
+        return gemini_model.ask_zeroshot(image_file=tmp_path, question=question)
+    
+    if selected_model == 'Gemini_fewshot':
+        _, gemini_model, _ = models[selected_model]
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
+            image.save(tmp, format="PNG")
+            tmp_path = tmp.name
+        return gemini_model.ask_fewshot(image_file=tmp_path, question=question)
+    
     if selected_model == 'beit3':
         with open("answer2label.json", mode="r", encoding="utf-8") as f:
             label2answer = json.load(f)
@@ -61,7 +79,7 @@ def get_format_response(image,question,selected_model):
     model = model_class.from_pretrained(model_name)
     
     encoding = processor(image, question, return_tensors="pt")
-    
+
     if selected_model in ['ViLT', 'My Model']:
         outputs = model(**encoding)
         logits = outputs.logits
