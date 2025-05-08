@@ -2,6 +2,7 @@ import streamlit as st
 from transformers import ViltForQuestionAnswering, BlipForQuestionAnswering, AutoProcessor
 from PIL import Image
 from modules.model import CustomViltForVQA
+import modules.beit_3
 from modules.beit_3 import Beit3Processing
 from timm.models import create_model
 #import modeling_finetune
@@ -15,6 +16,7 @@ models = {
     "BLIP": (AutoProcessor, BlipForQuestionAnswering, "Salesforce/blip-vqa-base"),
     "ViLT": (AutoProcessor, ViltForQuestionAnswering, "dandelin/vilt-b32-finetuned-vqa"),
     "My Model": (AutoProcessor, CustomViltForVQA, "phonghoccode/vilt-vqa-finetune-pytorch"),
+    "BEiT3": ("beit3_base_patch16_480_vqav2_vqav2"),
     "Gemini_zeroshot": ("Gemini", GeminiVQA(api_key="AIzaSyD22-9DA9oTtVVxQ1iOmrmx7Xre_kaLqdU"), "Gemini"),
     "Gemini_fewshot": ("Gemini", GeminiVQA(api_key="AIzaSyD22-9DA9oTtVVxQ1iOmrmx7Xre_kaLqdU"), "Gemini"),
 }
@@ -34,13 +36,13 @@ def get_format_response(image,question,selected_model):
             tmp_path = tmp.name
         return gemini_model.ask_fewshot(image_file=tmp_path, question=question)
     
-    if selected_model == 'beit3':
-        with open("answer2label.json", mode="r", encoding="utf-8") as f:
+    if selected_model == 'BEiT3':
+        with open("label2answer.json", mode="r", encoding="utf-8") as f:
             label2answer = json.load(f)
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         processor = Beit3Processing(sentencepiece_model="beit3.spm")
         model = create_model(
-            "beit3_base_patch16_480_vqav2_vqav2",
+            "beit3_base_patch16_480_vqav2",
             pretrained=False,
             drop_path_rate=0.1,
             vocab_size=64010,
@@ -66,12 +68,12 @@ def get_format_response(image,question,selected_model):
             model.load_state_dict(new_state_dict)
         data = processor(image, question)
         logits = model(
-            image=data["image"], 
+            image=data["image"],
             question=data["language_tokens"],
             padding_mask=data["padding_mask"]
         )
         idx = logits.argmax(-1).item()
-        answer = label2answer[idx]
+        answer = label2answer[str(idx)]
         return answer
 
     processor, model_class, model_name = models[selected_model]
@@ -79,7 +81,7 @@ def get_format_response(image,question,selected_model):
     model = model_class.from_pretrained(model_name)
     
     encoding = processor(image, question, return_tensors="pt")
-
+    
     if selected_model in ['ViLT', 'My Model']:
         outputs = model(**encoding)
         logits = outputs.logits

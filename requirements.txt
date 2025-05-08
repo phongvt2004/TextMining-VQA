@@ -17,3 +17,4 @@ torchvision
 transformers
 timm
 sentencepiece
+google-genai
