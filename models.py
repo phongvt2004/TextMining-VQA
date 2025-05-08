@@ -1,5 +1,5 @@
 import streamlit as st
-from transformers import ViltForQuestionAnswering, BlipForQuestionAnswering, AutoProcessor
+from transformers import ViltForQuestionAnswering, AutoProcessor, BeitImageProcessor, BeitForImageClassification
 from PIL import Image
 from modules.model import CustomViltForVQA
 import modules.beit_3
@@ -13,9 +13,9 @@ from gemini_Calls import GeminiVQA
 import tempfile
 
 models = {
-    "BLIP": (AutoProcessor, BlipForQuestionAnswering, "Salesforce/blip-vqa-base"),
-    "ViLT": (AutoProcessor, ViltForQuestionAnswering, "dandelin/vilt-b32-finetuned-vqa"),
-    "My Model": (AutoProcessor, CustomViltForVQA, "phonghoccode/vilt-vqa-finetune-pytorch"),
+    "BeiT3-base": (BeitImageProcessor, BeitForImageClassification, "microsoft/beit-base-patch16-224"),
+    "ViLT-base": (AutoProcessor, ViltForQuestionAnswering, "dandelin/vilt-b32-finetuned-vqa"),
+    "ViLT": (AutoProcessor, CustomViltForVQA, "phonghoccode/vilt-vqa-finetune-pytorch"),
     "BEiT3": ("beit3_base_patch16_480_vqav2_vqav2"),
     "Gemini_zeroshot": ("Gemini", GeminiVQA(api_key="AIzaSyD22-9DA9oTtVVxQ1iOmrmx7Xre_kaLqdU"), "Gemini"),
     "Gemini_fewshot": ("Gemini", GeminiVQA(api_key="AIzaSyD22-9DA9oTtVVxQ1iOmrmx7Xre_kaLqdU"), "Gemini"),
@@ -80,17 +80,20 @@ def get_format_response(image,question,selected_model):
     processor = processor.from_pretrained(model_name)
     model = model_class.from_pretrained(model_name)
     
-    encoding = processor(image, question, return_tensors="pt")
     
-    if selected_model in ['ViLT', 'My Model']:
+    if selected_model in ['ViLT', 'ViLT-base']:
+        encoding = processor(image, question, return_tensors="pt")
         outputs = model(**encoding)
         logits = outputs.logits
         idx = logits.argmax(-1).item()
         answer = model.config.id2label[idx]
         return answer
     else:
-        outputs = model.generate(**encoding)
-        answer = processor.decode(outputs[0], skip_special_tokens=True)
+        encoding = processor(image, return_tensors="pt")
+        outputs = model(**encoding)
+        logits = outputs.logits
+        idx = logits.argmax(-1).item()
+        answer = model.config.id2label[idx]
         return answer
 
 def run():
@@ -105,6 +108,9 @@ def run():
         image = Image.open(uploaded_image).convert("RGB")
         st.image(image, caption="Uploaded Image")
 
+    if selected_model == 'BeiT3-base':
+        st.write("Press 'any' to get the answer (no need to input a question).")
+    
     question = st.text_input("Ask a Question about the Image")
 
     if uploaded_image and question:
