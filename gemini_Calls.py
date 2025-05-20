@@ -49,3 +49,30 @@ class GeminiVQA:
             contents=prompt
         )
         return response.text.strip()
+    
+class GeminiRotator:
+    def __init__(self, api_keys, model_name="gemini-2.0-flash"):
+        self.api_keys = api_keys
+        self.model_name = model_name
+        self.index = 0
+        self.current = GeminiVQA(api_key=self.api_keys[self.index], model_name=model_name)
+
+    def _rotate_key(self):
+        self.index += 1
+        if self.index >= len(self.api_keys):
+            raise RuntimeError("All API keys exhausted.")
+        print(f"Switching to API key #{self.index + 1}")
+        self.current = GeminiVQA(api_key=self.api_keys[self.index], model_name=self.model_name)
+
+    def call(self, func_name, *args):
+        while True:
+            try:
+                func = getattr(self.current, func_name)
+                return func(*args)
+            except Exception as e:
+                if "quota" in str(e).lower() or "rate" in str(e).lower():
+                    print(f"Quota limit hit for key #{self.index + 1}, rotating...")
+                    self._rotate_key()
+                else:
+                    print(f"Unexpected error: {e}")
+                    return f"Error: {e}"
