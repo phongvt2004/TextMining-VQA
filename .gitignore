@@ -7,3 +7,4 @@ account_config.json
 test_checked_v8.csv
 test_results_with_predictions.csv
 *.pth
+venv
