@@ -26,5 +26,8 @@ python train_vilt.py --checkpoint_path /path/to/checkpoint --finetune name_of_vi
 ### BEiT-3
 ```
 cd beit3
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ./train.sh
 ```

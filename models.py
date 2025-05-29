@@ -233,6 +233,7 @@ def speak_message_api_tts(message_text, lang_code_gtts, force_speak=False): # S�
 # --- Hàm VQA (get_vqa_response - giữ nguyên như phiên bản trước) ---
 # (Copy hàm get_vqa_response vào đây)
 def get_vqa_response(image_pil, question_text_en, selected_model_key):
+    start = time.time()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     answer = None; error_msg = None
     try:
@@ -272,6 +273,10 @@ def get_vqa_response(image_pil, question_text_en, selected_model_key):
     except NotImplementedError as e: error_msg = f"Lỗi triển khai VQA: {e}"
     except ValueError as e: error_msg = str(e)
     except Exception as e: error_msg = f"Lỗi chung VQA ({selected_model_key}): {e}\n{traceback.format_exc()}"
+    time.sleep(1)
+    end = time.time()
+
+    print(f"Total runtime of the program is {end - start} seconds") 
     return answer, error_msg
 
 # --- Hàm Run chính của Streamlit ---
