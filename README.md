@@ -19,4 +19,12 @@ streamlit run app.py
 ```
 
 ## Finetuning
-Use train_vilt.py to finetune ViLT and train.py in beit3 folder to finetune BEiT-3.
+### ViLT
+```
+python train_vilt.py --checkpoint_path /path/to/checkpoint --finetune name_of_vilt_model --epochs 10 --num_workers 1 --batch_size 16
+```
+### BEiT-3
+```
+cd beit3
+./train.sh
+```
