@@ -18,3 +18,14 @@ transformers
 timm
 sentencepiece
 google-genai
+SpeechRecognition
+gTTS 
+translate 
+playsound
+torchscale
+openai-whisper
+pyttsx3
+streamlit-webrtc
+aiortc
+librosa
+webrtcvad
